@@ -51,10 +51,10 @@ func (r *RepositoryGastos) GetGastosByID(id int64) (*models.Gastos, error) {
 // 	return nil
 // }
 
-// func (r *Repository) ListGastos() ([]models.Gastos, error) {
-// 	var gastos []models.Gastos
-// 	if err := r.db.Find(&gastos); err != nil {
-// 		return nil, err
-// 	}
-// 	return gastos, nil
-// }
+func (r *RepositoryGastos) ListGastos() ([]models.Gastos, error) {
+	var gastos []models.Gastos
+	if err := r.db.Find(&gastos).Error; err != nil {
+		return nil, err
+	}
+	return gastos, nil
+}

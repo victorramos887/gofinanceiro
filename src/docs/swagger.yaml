@@ -200,6 +200,40 @@ paths:
       summary: Retrieve a ganho by ID
       tags:
       - Ganhos
+  /gastos/:
+    get:
+      consumes:
+      - application/json
+      description: Fetches a gasto record based List
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Gasto retrieved successfully
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Invalid ID format
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Gasto not found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Retrieve a gasto list
+      tags:
+      - Gastos
   /gastos/{id}:
     get:
       consumes:

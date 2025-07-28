@@ -5,6 +5,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/victorramos887/gofinanceiro/src/domain/repository"
+	"github.com/victorramos887/gofinanceiro/src/domain/services/contracts"
 )
 
 // ListGanhosHandler godoc
@@ -31,5 +32,20 @@ func ListGanhosHandler(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"data": ganhos})
+	var responseGanhos []contracts.ResponseGanhos
+	for _, ganho := range ganhos {
+		responseGanho := contracts.ResponseGanhos{
+			ID:        ganho.ID,
+			Descricao: ganho.Descricao,
+			Valor:     ganho.Valor,
+			Tipo:      ganho.Tipo,
+			Data:      ganho.Data.Format("2006-01-02"),
+			Categoria: ganho.Categoria,
+			CreatedAt: ganho.CreatedAt.Format("2006-01-02 15:04:05"),
+			UpdatedAt: ganho.UpdatedAt.Format("2006-01-02 15:04:05"),
+		}
+		responseGanhos = append(responseGanhos, responseGanho)
+	}
+
+	c.JSON(http.StatusOK, gin.H{"data": responseGanhos})
 }

@@ -241,6 +241,57 @@ const docTemplate = `{
                 }
             }
         },
+        "/gastos/": {
+            "get": {
+                "description": "Fetches a gasto record based List",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Gastos"
+                ],
+                "summary": "Retrieve a gasto list",
+                "responses": {
+                    "200": {
+                        "description": "Gasto retrieved successfully",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid ID format",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Gasto not found",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/gastos/{id}": {
             "get": {
                 "description": "Fetches a gasto record based on the provided ID parameter",
