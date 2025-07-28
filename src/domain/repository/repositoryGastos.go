@@ -22,13 +22,13 @@ func (r *RepositoryGastos) CreateGastos(gastos *models.Gastos) (models.Gastos, e
 	return *gastos, nil
 }
 
-// func (r *Repository) GetGastosByID(id int64) (*models.Gastos, error) {
-// 	var gastos models.Gastos
-// 	if err := r.db.First(&gastos, id); err != nil {
-// 		return nil, err
-// 	}
-// 	return &gastos, nil
-// }
+func (r *RepositoryGastos) GetGastosByID(id int64) (*models.Gastos, error) {
+	var gastos models.Gastos
+	if err := r.db.First(&gastos, id).Error; err != nil {
+		return nil, err
+	}
+	return &gastos, nil
+}
 
 // func (r *Repository) CreateGasto(gasto *models.Gastos) error {
 // 	if err := r.db.Create(gasto); err != nil {

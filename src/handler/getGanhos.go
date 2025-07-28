@@ -20,7 +20,7 @@ import (
 // @Failure      400  {object}  map[string]string       "Invalid ID format"
 // @Failure      404  {object}  map[string]string       "Ganho not found"
 // @Failure      500  {object}  map[string]string       "Internal server error"
-// @Router       /api/v1/ganhos/{id} [get]
+// @Router       /ganhos/{id} [get]
 func GetGanhosHandler(c *gin.Context) {
 	h := repository.NewRepositoryGanhos(db)
 	if h == nil {
@@ -34,7 +34,6 @@ func GetGanhosHandler(c *gin.Context) {
 		return
 	}
 
-	// Convert id from string to int64
 	idInt, err := strconv.ParseInt(id, 10, 64)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "ID must be a valid integer"})

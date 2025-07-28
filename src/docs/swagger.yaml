@@ -89,7 +89,43 @@ paths:
       summary: Cria um novo ganho
       tags:
       - Ganhos
-  /api/v1/ganhos/{id}:
+  /api/v1/gastos:
+    post:
+      consumes:
+      - application/json
+      description: Cria um novo registro de gastos com os dados fornecidos no corpo
+        da requisição
+      parameters:
+      - description: Dados do gasto a ser criado
+        in: body
+        name: gasto
+        required: true
+        schema:
+          $ref: '#/definitions/contracts.RequestGastos'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Gasto criado com sucesso
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Erro nos dados enviados
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Erro interno no servidor
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Cria um novo gasto
+      tags:
+      - Gastos
+  /ganhos/{id}:
     get:
       consumes:
       - application/json
@@ -130,40 +166,45 @@ paths:
       summary: Retrieve a ganho by ID
       tags:
       - Ganhos
-  /api/v1/gastos:
-    post:
+  /gastos/{id}:
+    get:
       consumes:
       - application/json
-      description: Cria um novo registro de gastos com os dados fornecidos no corpo
-        da requisição
+      description: Fetches a gasto record based on the provided ID parameter
       parameters:
-      - description: Dados do gasto a ser criado
-        in: body
-        name: gasto
+      - description: ID of the gasto to retrieve
+        format: int64
+        in: path
+        name: id
         required: true
-        schema:
-          $ref: '#/definitions/contracts.RequestGastos'
+        type: integer
       produces:
       - application/json
       responses:
-        "201":
-          description: Gasto criado com sucesso
+        "200":
+          description: Gasto retrieved successfully
           schema:
             additionalProperties: true
             type: object
         "400":
-          description: Erro nos dados enviados
+          description: Invalid ID format
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Gasto not found
           schema:
             additionalProperties:
               type: string
             type: object
         "500":
-          description: Erro interno no servidor
+          description: Internal server error
           schema:
             additionalProperties:
               type: string
             type: object
-      summary: Cria um novo gasto
+      summary: Retrieve a gasto by ID
       tags:
       - Gastos
 swagger: "2.0"

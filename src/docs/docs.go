@@ -76,7 +76,60 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/v1/ganhos/{id}": {
+        "/api/v1/gastos": {
+            "post": {
+                "description": "Cria um novo registro de gastos com os dados fornecidos no corpo da requisição",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Gastos"
+                ],
+                "summary": "Cria um novo gasto",
+                "parameters": [
+                    {
+                        "description": "Dados do gasto a ser criado",
+                        "name": "gasto",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/contracts.RequestGastos"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Gasto criado com sucesso",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Erro nos dados enviados",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erro interno no servidor",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/ganhos/{id}": {
             "get": {
                 "description": "Fetches a ganho record based on the provided ID parameter",
                 "consumes": [
@@ -137,9 +190,9 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/v1/gastos": {
-            "post": {
-                "description": "Cria um novo registro de gastos com os dados fornecidos no corpo da requisição",
+        "/gastos/{id}": {
+            "get": {
+                "description": "Fetches a gasto record based on the provided ID parameter",
                 "consumes": [
                     "application/json"
                 ],
@@ -149,28 +202,36 @@ const docTemplate = `{
                 "tags": [
                     "Gastos"
                 ],
-                "summary": "Cria um novo gasto",
+                "summary": "Retrieve a gasto by ID",
                 "parameters": [
                     {
-                        "description": "Dados do gasto a ser criado",
-                        "name": "gasto",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/contracts.RequestGastos"
-                        }
+                        "type": "integer",
+                        "format": "int64",
+                        "description": "ID of the gasto to retrieve",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
                     }
                 ],
                 "responses": {
-                    "201": {
-                        "description": "Gasto criado com sucesso",
+                    "200": {
+                        "description": "Gasto retrieved successfully",
                         "schema": {
                             "type": "object",
                             "additionalProperties": true
                         }
                     },
                     "400": {
-                        "description": "Erro nos dados enviados",
+                        "description": "Invalid ID format",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Gasto not found",
                         "schema": {
                             "type": "object",
                             "additionalProperties": {
@@ -179,7 +240,7 @@ const docTemplate = `{
                         }
                     },
                     "500": {
-                        "description": "Erro interno no servidor",
+                        "description": "Internal server error",
                         "schema": {
                             "type": "object",
                             "additionalProperties": {
