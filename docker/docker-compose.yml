@@ -1,0 +1,41 @@
+version: '3.9'
+
+
+volumes:
+  financeiro-postgres-data:
+  pgadmin_data:
+
+networks:
+  infrastructure:
+    driver: bridge
+
+services:
+  financeiro-postgres:
+    image: postgis/postgis:16-3.4
+    container_name: financeiro-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: financeiro
+      POSTGRES_PASSWORD: financeiro
+      POSTGRES_DB: financeiro
+    ports:
+      - "5433:5432"
+    volumes:
+      - financeiro-postgres-data:/var/lib/postgresql/data
+    networks:
+      - infrastructure
+
+  financeiro_pgadmin:
+    image: dpage/pgadmin4
+    container_name: financeiro_pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: financeiro@learning.com
+      PGADMIN_DEFAULT_PASSWORD: financeiro
+    ports:
+      - "5051:80"
+    depends_on:
+      - financeiro-postgres
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    networks:
+      - infrastructure
