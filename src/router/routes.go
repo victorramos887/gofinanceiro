@@ -17,6 +17,7 @@ func initializeRoutes(router *gin.Engine) {
 
 	v1.POST("/ganhos", handler.CreateGanhoHandler)
 	v1.GET("/ganhos/:id", handler.GetGanhosHandler)
+	v1.GET("/ganhos", handler.ListGanhosHandler)
 
 	v1.POST("/gastos", handler.CreateGastosHandler)
 	v1.GET("/gastos/:id", handler.GetGastosByIDHandler)
