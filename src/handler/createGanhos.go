@@ -10,8 +10,19 @@ import (
 	"github.com/victorramos887/gofinanceiro/src/domain/services/contracts"
 )
 
+// CreateGanhoHandler godoc
+// @Summary      Cria um novo ganho
+// @Description  Cria um novo registro de ganho com os dados fornecidos no corpo da requisição
+// @Tags         Ganhos
+// @Accept       json
+// @Produce      json
+// @Param        ganho  body  contracts.RequestGanhos  true  "Dados do ganho a ser criado"
+// @Success      201  {object}  map[string]interface{}  "Ganho criado com sucesso"
+// @Failure      400  {object}  map[string]string       "Erro nos dados enviados"
+// @Failure      500  {object}  map[string]string       "Erro interno no servidor"
+// @Router       /api/v1/ganhos [post]
 func CreateGanhoHandler(c *gin.Context) {
-	h := repository.NewRepository(db)
+	h := repository.NewRepositoryGanhos(db)
 	if h == nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Repository not initialized"})
 		return

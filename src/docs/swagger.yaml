@@ -1,0 +1,69 @@
+basePath: /api/v1
+definitions:
+  contracts.RequestGanhos:
+    properties:
+      categoria:
+        type: string
+      data:
+        type: string
+      descricao:
+        type: string
+      observacao:
+        type: string
+      tipo:
+        type: string
+      usuario_id:
+        type: integer
+      valor:
+        type: number
+    type: object
+host: localhost:8085
+info:
+  contact:
+    email: victor@email.com
+    name: Victor Ramos
+  description: API para gerenciamento financeiro pessoal
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+  termsOfService: http://example.com/terms/
+  title: API Financeiro
+  version: "1.0"
+paths:
+  /api/v1/ganhos:
+    post:
+      consumes:
+      - application/json
+      description: Cria um novo registro de ganho com os dados fornecidos no corpo
+        da requisição
+      parameters:
+      - description: Dados do ganho a ser criado
+        in: body
+        name: ganho
+        required: true
+        schema:
+          $ref: '#/definitions/contracts.RequestGanhos'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Ganho criado com sucesso
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Erro nos dados enviados
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Erro interno no servidor
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Cria um novo ganho
+      tags:
+      - Ganhos
+swagger: "2.0"

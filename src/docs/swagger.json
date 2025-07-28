@@ -1,0 +1,102 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "API para gerenciamento financeiro pessoal",
+        "title": "API Financeiro",
+        "termsOfService": "http://example.com/terms/",
+        "contact": {
+            "name": "Victor Ramos",
+            "email": "victor@email.com"
+        },
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        },
+        "version": "1.0"
+    },
+    "host": "localhost:8085",
+    "basePath": "/api/v1",
+    "paths": {
+        "/api/v1/ganhos": {
+            "post": {
+                "description": "Cria um novo registro de ganho com os dados fornecidos no corpo da requisição",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Ganhos"
+                ],
+                "summary": "Cria um novo ganho",
+                "parameters": [
+                    {
+                        "description": "Dados do ganho a ser criado",
+                        "name": "ganho",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/contracts.RequestGanhos"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Ganho criado com sucesso",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Erro nos dados enviados",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erro interno no servidor",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "contracts.RequestGanhos": {
+            "type": "object",
+            "properties": {
+                "categoria": {
+                    "type": "string"
+                },
+                "data": {
+                    "type": "string"
+                },
+                "descricao": {
+                    "type": "string"
+                },
+                "observacao": {
+                    "type": "string"
+                },
+                "tipo": {
+                    "type": "string"
+                },
+                "usuario_id": {
+                    "type": "integer"
+                },
+                "valor": {
+                    "type": "number"
+                }
+            }
+        }
+    }
+}
