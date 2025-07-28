@@ -8,6 +8,19 @@ import (
 	"github.com/victorramos887/gofinanceiro/src/domain/repository"
 )
 
+
+// GetGanhosHandler godoc
+// @Summary      Retrieve a ganho by ID
+// @Description  Fetches a ganho record based on the provided ID parameter
+// @Tags         Ganhos
+// @Accept       json
+// @Produce      json
+// @Param        id  path  int64  true  "ID of the ganho to retrieve"
+// @Success      200  {object}  map[string]interface{}  "Ganho retrieved successfully"
+// @Failure      400  {object}  map[string]string       "Invalid ID format"
+// @Failure      404  {object}  map[string]string       "Ganho not found"
+// @Failure      500  {object}  map[string]string       "Internal server error"
+// @Router       /api/v1/ganhos/{id} [get]
 func GetGanhosHandler(c *gin.Context) {
 	h := repository.NewRepositoryGanhos(db)
 	if h == nil {
