@@ -9,7 +9,7 @@ type RepositoryGanhos struct {
 	db *gorm.DB
 }
 
-func NewRepository(db *gorm.DB) *RepositoryGanhos {
+func NewRepositoryGanhos(db *gorm.DB) *RepositoryGanhos {
 	return &RepositoryGanhos{db: db}
 }
 
