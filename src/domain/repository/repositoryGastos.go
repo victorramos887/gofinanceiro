@@ -1,6 +1,26 @@
 package repository
 
+import (
+	"github.com/victorramos887/gofinanceiro/src/domain/models"
+	"gorm.io/gorm"
+)
+
 // import "github.com/victorramos887/gofinanceiro/src/domain/models"
+
+type RepositoryGastos struct {
+	db *gorm.DB
+}
+
+func NewRepositoryGastos(db *gorm.DB) *RepositoryGastos {
+	return &RepositoryGastos{db: db}
+}
+
+func (r *RepositoryGastos) CreateGastos(gastos *models.Gastos) (models.Gastos, error) {
+	if err := r.db.Create(gastos).Error; err != nil {
+		return models.Gastos{}, err
+	}
+	return *gastos, nil
+}
 
 // func (r *Repository) GetGastosByID(id int64) (*models.Gastos, error) {
 // 	var gastos models.Gastos
@@ -9,7 +29,6 @@ package repository
 // 	}
 // 	return &gastos, nil
 // }
-
 
 // func (r *Repository) CreateGasto(gasto *models.Gastos) error {
 // 	if err := r.db.Create(gasto); err != nil {

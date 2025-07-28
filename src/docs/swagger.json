@@ -69,6 +69,59 @@
                     }
                 }
             }
+        },
+        "/api/v1/gastos": {
+            "post": {
+                "description": "Cria um novo registro de gastos com os dados fornecidos no corpo da requisição",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Gastos"
+                ],
+                "summary": "Cria um novo gasto",
+                "parameters": [
+                    {
+                        "description": "Dados do gasto a ser criado",
+                        "name": "gasto",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/contracts.RequestGastos"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Gasto criado com sucesso",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Erro nos dados enviados",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erro interno no servidor",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -91,6 +144,41 @@
                     "type": "string"
                 },
                 "usuario_id": {
+                    "type": "integer"
+                },
+                "valor": {
+                    "type": "number"
+                }
+            }
+        },
+        "contracts.RequestGastos": {
+            "type": "object",
+            "properties": {
+                "categoria": {
+                    "type": "string"
+                },
+                "data": {
+                    "type": "string"
+                },
+                "data_inicio": {
+                    "type": "string"
+                },
+                "descricao": {
+                    "type": "string"
+                },
+                "forma_pagamento": {
+                    "type": "string"
+                },
+                "observacao": {
+                    "type": "string"
+                },
+                "parcelas": {
+                    "type": "integer"
+                },
+                "usuario_id_created_at": {
+                    "type": "integer"
+                },
+                "usuario_id_updated_at": {
                     "type": "integer"
                 },
                 "valor": {

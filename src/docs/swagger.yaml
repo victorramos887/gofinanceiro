@@ -17,6 +17,29 @@ definitions:
       valor:
         type: number
     type: object
+  contracts.RequestGastos:
+    properties:
+      categoria:
+        type: string
+      data:
+        type: string
+      data_inicio:
+        type: string
+      descricao:
+        type: string
+      forma_pagamento:
+        type: string
+      observacao:
+        type: string
+      parcelas:
+        type: integer
+      usuario_id_created_at:
+        type: integer
+      usuario_id_updated_at:
+        type: integer
+      valor:
+        type: number
+    type: object
 host: localhost:8085
 info:
   contact:
@@ -66,4 +89,40 @@ paths:
       summary: Cria um novo ganho
       tags:
       - Ganhos
+  /api/v1/gastos:
+    post:
+      consumes:
+      - application/json
+      description: Cria um novo registro de gastos com os dados fornecidos no corpo
+        da requisição
+      parameters:
+      - description: Dados do gasto a ser criado
+        in: body
+        name: gasto
+        required: true
+        schema:
+          $ref: '#/definitions/contracts.RequestGastos'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Gasto criado com sucesso
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Erro nos dados enviados
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Erro interno no servidor
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Cria um novo gasto
+      tags:
+      - Gastos
 swagger: "2.0"
