@@ -21,11 +21,12 @@ func (r *RepositoryGanhos) GetGanhosByID(id int64) (*models.Ganhos, error) {
 	return &ganho, nil
 }
 
-func (r *RepositoryGanhos) CreateGanho(ganho *models.Ganhos) error {
+func (r *RepositoryGanhos) CreateGanho(ganho *models.Ganhos) (models.Ganhos, error) {
+
 	if err := r.db.Create(ganho).Error; err != nil {
-		return err
+		return models.Ganhos{}, err
 	}
-	return nil
+	return *ganho, nil
 }
 
 func (r *RepositoryGanhos) UpdateGanho(ganho *models.Ganhos) error {

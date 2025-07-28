@@ -10,5 +10,5 @@ func initializeRoutes(router *gin.Engine) {
 	basePath := "/api/v1"
 	v1 := router.Group(basePath)
 
-	v1.GET("/ganhos", handler.CreateGanho)
+	v1.GET("/ganhos", handler.CreateGanhoHandler)
 }
